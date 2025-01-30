@@ -8,6 +8,13 @@ public class User {
 
     public User() {}
 
+    public User(String email) {
+        this.email = email;
+        this.aboutMe = "";
+        // this.profilePicture =
+        this.gender = "";
+    }
+
     public String getEmail() {
         return email;
     }

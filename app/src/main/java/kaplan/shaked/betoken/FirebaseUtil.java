@@ -46,4 +46,9 @@ public class FirebaseUtil {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         return auth.getCurrentUser();
     }
+
+    public static void firestoreAddUser(String email) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    }
 }
