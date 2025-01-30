@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "259702034795",
+    "project_id": "schoolprojectapp-3345a",
+    "storage_bucket": "schoolprojectapp-3345a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259702034795:android:be8e79ea538771a4097c2e",
+        "android_client_info": {
+          "package_name": "kaplan.shaked.betoken"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATbWE6A_ne99twLcxODG066LhgtnuYB6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

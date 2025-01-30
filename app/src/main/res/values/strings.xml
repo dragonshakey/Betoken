@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Betoken</string>
+    <string name="LoginTitle">Login</string>
+    <string name="SignUpTitle">Sign Up</string>
+</resources>
