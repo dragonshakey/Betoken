@@ -28,7 +28,7 @@
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfileProfilePicture" />
 
     <TextView
         android:id="@+id/textViewProfileGender"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewProfileEmail" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewProfileProfilePicture"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="44dp"
