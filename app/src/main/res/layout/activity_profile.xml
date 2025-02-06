@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background1"
     tools:context=".activity_profile">
 
     <TextView
@@ -12,8 +13,10 @@
         android:layout_width="315dp"
         android:layout_height="417dp"
         android:layout_marginBottom="68dp"
+        android:padding="8dp"
         android:text="About Me"
         android:textSize="18sp"
+        android:textColor="@color/primary_text_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.458"
@@ -25,7 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="48dp"
+        android:padding="8dp"
         android:text="TextView"
+        android:textColor="@color/primary_text_color"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewProfileProfilePicture" />
@@ -35,8 +40,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
+        android:padding="8dp"
         android:text="Gender"
         android:textSize="18sp"
+        android:textColor="@color/primary_text_color"
         app:layout_constraintBottom_toTopOf="@+id/textViewProfileAboutMe"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewProfileEmail" />

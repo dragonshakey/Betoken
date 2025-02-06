@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background1"
     tools:context=".ChatsActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -18,11 +19,12 @@
 
     <EditText
         android:id="@+id/editTextText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="227dp"
+        android:layout_height="57dp"
         android:ems="10"
         android:inputType="text"
         android:text="Name"
+        android:textColor="@color/primary_text_color"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewChats"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
