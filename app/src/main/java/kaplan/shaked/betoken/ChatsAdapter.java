@@ -48,7 +48,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             mail = itemView.findViewById(R.id.textViewChatItemMail);
             lastMessage = itemView.findViewById(R.id.textViewChatItemLastMessage);
             lastMessageDateTime = itemView.findViewById(R.id.textViewChatItemLastMessageDateTime);
-            profilePicture = itemView.findViewById(R.id.imageViewChatItmeProfile);
+            profilePicture = itemView.findViewById(R.id.imageViewChatItemProfile);
         }
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageViewChatItmeProfile"
+        android:id="@+id/imageViewChatItemProfile"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginStart="16dp"
@@ -23,7 +23,7 @@
         android:layout_marginTop="16dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/imageViewChatItmeProfile"
+        app:layout_constraintStart_toEndOf="@+id/imageViewChatItemProfile"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -33,8 +33,8 @@
         android:layout_marginStart="16dp"
         android:text="TextView"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewChatItmeProfile"
-        app:layout_constraintStart_toEndOf="@+id/imageViewChatItmeProfile"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewChatItemProfile"
+        app:layout_constraintStart_toEndOf="@+id/imageViewChatItemProfile"
         app:layout_constraintTop_toBottomOf="@+id/textViewChatItemMail"
         app:layout_constraintVertical_bias="0.318" />
 
@@ -58,6 +58,6 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewChatItmeProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewChatItemProfile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
