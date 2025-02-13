@@ -3,7 +3,7 @@ package kaplan.shaked.betoken;
 public class User {
     private String email;
     private String aboutMe;
-    // private something profilePicture
+    private int profilePicture;
     private String gender;
 
     public User() {}
@@ -11,7 +11,7 @@ public class User {
     public User(String email) {
         this.email = email;
         this.aboutMe = "";
-        // this.profilePicture =
+        this.profilePicture = 0;
         this.gender = "";
     }
 
@@ -21,6 +21,10 @@ public class User {
 
     public String getAboutMe() {
         return aboutMe;
+    }
+
+    public int getProfilePicture() {
+        return profilePicture;
     }
 
     public String getGender() {
