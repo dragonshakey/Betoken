@@ -15,6 +15,13 @@ public class User {
         this.gender = "";
     }
 
+    public User(String email, String aboutMe, int profilePicture, String gender) {
+        this.email = email;
+        this.aboutMe = aboutMe;
+        this.profilePicture = profilePicture;
+        this.gender = gender;
+    }
+
     public String getEmail() {
         return email;
     }

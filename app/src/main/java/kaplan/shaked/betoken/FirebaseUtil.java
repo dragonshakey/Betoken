@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 
 public class FirebaseUtil {
 
@@ -57,13 +58,39 @@ public class FirebaseUtil {
                         DocumentSnapshot document = task.getResult().getDocuments().get(0);
                         Log.d(TAG, "gotten document: " + document.getId() + " => " + document.getData());
                     } else {
-                        Log.d(TAG, "Error getting documents: ", task.getException());
+                        Log.w(TAG, "Error getting documents: ", task.getException());
                     }
                 });
     }
 
     public static void firestoreEditUser(String email, String aboutMe, int profilePicture, String gender) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        User user = new User(email);
+        User user = new User(email, aboutMe, profilePicture, gender);
+        WriteBatch batch = db.batch();
+
+        firestoreGetUser(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                        batch.set(document.getReference(), user);
+
+                        batch.commit()
+                                .addOnSuccessListener(unused -> Log.d(TAG, "User " + document.getString("email") + "was updated"))
+                                .addOnFailureListener(e -> Log.w(TAG, "User " + document.getString("email") + "failed to update user", e));
+                    }
+                });
+    }
+
+    public static Task<DocumentSnapshot> firestoreGetUsers() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        return db.collection(USERS).document().get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "Gotten all users");
+                    } else {
+                        Log.w(TAG, "Failed to get users: ", task.getException());
+                    }
+                });
     }
 }
