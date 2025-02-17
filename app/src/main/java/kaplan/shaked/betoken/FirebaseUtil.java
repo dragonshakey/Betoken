@@ -1,40 +1,33 @@
 package kaplan.shaked.betoken;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 
 public class FirebaseUtil {
 
     private static final String TAG = "FirebaseUtil";
+    private static final String USERS = "Users";
 
     public static Task<AuthResult> login(String email, String password) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         return auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.d(TAG, "Login Successful");
-                    } else {
-                        Log.w(TAG, "Login Failed", task.getException());
-                    }
-                });
+                .addOnSuccessListener(unused -> Log.d(TAG, "Login Successful"))
+                .addOnFailureListener((Exception e) -> Log.w(TAG, "Login Failed", e));
     }
 
     public static Task<AuthResult> signup(String email, String password) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         return auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.d(TAG, "Sign Up Successful");
-                    } else {
-                        Log.w(TAG, "Sign Up Failed", task.getException());
-                    }
-                });
+                .addOnSuccessListener(unused -> Log.d(TAG, "Sign Up Successful"))
+                .addOnFailureListener((Exception e) -> Log.w(TAG, "Sign Up Failed", e));
     }
 
     public static boolean isLoggedIn() {
@@ -45,5 +38,59 @@ public class FirebaseUtil {
     public static FirebaseUser getCurrentUser() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         return auth.getCurrentUser();
+    }
+
+    public static void firestoreAddUser(String email) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        User user = new User(email);
+        db.collection(USERS).document().set(user)
+                .addOnSuccessListener(unused ->
+                        Log.d(TAG, "Successfully added user to firestore"))
+                .addOnFailureListener((Exception e) ->
+                        Log.w(TAG, "Failed to add user to firestore", e));
+    }
+
+    public static Task<QuerySnapshot> firestoreGetUser(String email) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        return db.collection(USERS).whereEqualTo("email", email).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                        Log.d(TAG, "gotten document: " + document.getId() + " => " + document.getData());
+                    } else {
+                        Log.w(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
+    }
+
+    public static void firestoreEditUser(String email, String aboutMe, int profilePicture, String gender) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        User user = new User(email, aboutMe, profilePicture, gender);
+        WriteBatch batch = db.batch();
+
+        firestoreGetUser(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                        batch.set(document.getReference(), user);
+
+                        batch.commit()
+                                .addOnSuccessListener(unused -> Log.d(TAG, "User " + document.getString("email") + "was updated"))
+                                .addOnFailureListener(e -> Log.w(TAG, "User " + document.getString("email") + "failed to update user", e));
+                    }
+                });
+    }
+
+    public static Task<DocumentSnapshot> firestoreGetUsers() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        return db.collection(USERS).document().get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "Gotten all users");
+                    } else {
+                        Log.w(TAG, "Failed to get users: ", task.getException());
+                    }
+                });
     }
 }
