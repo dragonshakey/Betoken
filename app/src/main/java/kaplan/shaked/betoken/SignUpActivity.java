@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
            FirebaseUtil
                    .signup(emailEditText.getText().toString(), passwordEditText.getText().toString())
                    .addOnSuccessListener(task -> {
-
+                       FirebaseUtil.firestoreAddUser(emailEditText.getText().toString());
                        Intent intent = new Intent("android.intent.action.chats");
                        startActivity(intent);
                    })
