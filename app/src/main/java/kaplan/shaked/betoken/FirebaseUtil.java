@@ -11,6 +11,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 
+import java.util.Objects;
+
 public class FirebaseUtil {
 
     private static final String TAG = "FirebaseUtil";
@@ -92,5 +94,27 @@ public class FirebaseUtil {
                         Log.w(TAG, "Failed to get users: ", task.getException());
                     }
                 });
+    }
+
+    public static void deleteUser(String email, String password) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            Log.w(TAG, "No user is logged in", new NullPointerException());
+            return;
+        }
+        FirebaseUser user = auth.getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        login(email, password)
+                .addOnSuccessListener(authResult -> {
+                    user.reauthenticate(Objects.requireNonNull(authResult.getCredential()));
+                    user.delete();
+                    Log.d(TAG, "The user logged in and has been deleted");
+                })
+                .addOnFailureListener(e -> {
+                    Log.w(TAG, "Failed to re-login", e);
+                });
+
+        // remove user from firestore
     }
 }
