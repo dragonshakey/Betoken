@@ -19,7 +19,7 @@
             android:name=".PersonalProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_profile"
+            android:name=".ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ChatsActivity"

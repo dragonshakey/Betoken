@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background1"
-    tools:context=".activity_profile">
+    tools:context=".ProfileActivity">
 
     <TextView
         android:id="@+id/textViewProfileAboutMe"
@@ -33,7 +33,7 @@
         android:textColor="@color/primary_text_color"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewProfileProfilePicture" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfilePersonalProfilePicture" />
 
     <TextView
         android:id="@+id/textViewProfileGender"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewProfileEmail" />
 
     <ImageView
-        android:id="@+id/imageViewProfileProfilePicture"
+        android:id="@+id/imageViewProfilePersonalProfilePicture"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="44dp"
