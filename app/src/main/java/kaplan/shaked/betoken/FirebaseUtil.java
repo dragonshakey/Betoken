@@ -12,6 +12,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 
+import java.util.Arrays;
+
 public class FirebaseUtil {
 
     private static final String TAG = "FirebaseUtil";
@@ -82,9 +84,9 @@ public class FirebaseUtil {
                 });
     }
 
-    public static Task<QuerySnapshot> firestoreGetUsers() {
+    public static Task<QuerySnapshot> firestoreGetUsers(String email) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        return db.collection(USERS).whereNotEqualTo("email", "").get()
+        return db.collection(USERS).whereNotIn("email", Arrays.asList("", email)).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "Gotten all users");
