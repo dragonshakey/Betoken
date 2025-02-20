@@ -3,6 +3,7 @@ package kaplan.shaked.betoken;
 import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -10,8 +11,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
-
-import java.util.Objects;
 
 public class FirebaseUtil {
 
@@ -60,7 +59,7 @@ public class FirebaseUtil {
                         DocumentSnapshot document = task.getResult().getDocuments().get(0);
                         Log.d(TAG, "gotten document: " + document.getId() + " => " + document.getData());
                     } else {
-                        Log.w(TAG, "Error getting documents: ", task.getException());
+                        Log.w(TAG, "Error getting document: ", task.getException());
                     }
                 });
     }
@@ -78,15 +77,14 @@ public class FirebaseUtil {
 
                         batch.commit()
                                 .addOnSuccessListener(unused -> Log.d(TAG, "User " + document.getString("email") + "was updated"))
-                                .addOnFailureListener(e -> Log.w(TAG, "User " + document.getString("email") + "failed to update user", e));
+                                .addOnFailureListener((Exception e) -> Log.w(TAG, "User " + document.getString("email") + "failed to update user", e));
                     }
                 });
     }
 
-    public static Task<DocumentSnapshot> firestoreGetUsers() {
+    public static Task<QuerySnapshot> firestoreGetUsers() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        return db.collection(USERS).document().get()
+        return db.collection(USERS).whereNotEqualTo("email", "").get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "Gotten all users");
@@ -96,25 +94,28 @@ public class FirebaseUtil {
                 });
     }
 
-    public static void deleteUser(String email, String password) {
+    public static void deleteUser(AuthCredential credential) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() == null) {
+        if (!isLoggedIn()) {
             Log.w(TAG, "No user is logged in", new NullPointerException());
             return;
         }
         FirebaseUser user = auth.getCurrentUser();
+        assert user != null;
+
+        user.reauthenticate(credential);
+        user.delete();
+        Log.d(TAG, "The user logged in and has been deleted");
+    }
+
+    public static void firestoreDeleteUser(String email) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        login(email, password)
-                .addOnSuccessListener(authResult -> {
-                    user.reauthenticate(Objects.requireNonNull(authResult.getCredential()));
-                    user.delete();
-                    Log.d(TAG, "The user logged in and has been deleted");
-                })
-                .addOnFailureListener(e -> {
-                    Log.w(TAG, "Failed to re-login", e);
+        firestoreGetUser(email)
+                .addOnCompleteListener(task -> {
+                    DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                    document.getReference().delete()
+                            .addOnSuccessListener(unused -> Log.d(TAG, ""))
+                            .addOnFailureListener((Exception e) -> Log.w(TAG, "", e));
                 });
-
-        // remove user from firestore
     }
 }
