@@ -10,8 +10,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewChats"
-        android:layout_width="409dp"
-        android:layout_height="716dp"
+        android:layout_width="match_parent"
+        android:layout_height="761dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -19,15 +19,24 @@
 
     <EditText
         android:id="@+id/editTextText"
-        android:layout_width="307dp"
-        android:layout_height="66dp"
+        android:layout_width="320dp"
+        android:layout_height="80dp"
         android:ems="10"
         android:inputType="text"
         android:text="Name"
         android:textColor="@color/primary_text_color"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewChats"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewChats"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
