@@ -1,9 +1,13 @@
 package kaplan.shaked.betoken;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,13 +21,15 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
-public class ChatsActivity extends AppCompatActivity {
+public class ChatsActivity extends AppCompatActivity implements View.OnClickListener {
 
+    Context context;
     FirebaseUser user;
     RecyclerView chatsRecyclerView;
     ChatItem[] chatsList;
     ChatsAdapter adapter;
-    Context context;
+    Button personalProfileButton;
+    EditText searchEmailEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +37,13 @@ public class ChatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chats);
 
         context = this;
-        chatsRecyclerView = findViewById(R.id.recyclerViewChats);
         user = FirebaseUtil.getCurrentUser();
+        chatsRecyclerView = findViewById(R.id.recyclerViewChats);
+        personalProfileButton = findViewById(R.id.buttonPersonalProfile);
+        searchEmailEditText = findViewById(R.id.editTextEmailSearch);
+
+        personalProfileButton.setOnClickListener(this);
+
         FirebaseUtil.firestoreGetUsers(user.getEmail())
                 .addOnSuccessListener((QuerySnapshot q) -> {
                     List<DocumentSnapshot> documents = q.getDocuments();
@@ -52,5 +63,14 @@ public class ChatsActivity extends AppCompatActivity {
                     chatsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
                     chatsRecyclerView.setAdapter(adapter);
                 });
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.buttonPersonalProfile) {
+            Intent intent = new Intent("android.intent.action.personal");
+            startActivity(intent);
+        }
     }
 }
