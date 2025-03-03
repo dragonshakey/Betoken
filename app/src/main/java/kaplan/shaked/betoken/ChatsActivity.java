@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,7 +23,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
-public class ChatsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ChatsActivity extends AppCompatActivity
+        implements View.OnClickListener, TextView.OnEditorActionListener {
 
     Context context;
     FirebaseUser user;
@@ -43,6 +46,7 @@ public class ChatsActivity extends AppCompatActivity implements View.OnClickList
         searchEmailEditText = findViewById(R.id.editTextEmailSearch);
 
         personalProfileButton.setOnClickListener(this);
+        searchEmailEditText.setOnEditorActionListener(this);
 
         FirebaseUtil.firestoreGetUsers(user.getEmail())
                 .addOnSuccessListener((QuerySnapshot q) -> {
@@ -72,5 +76,14 @@ public class ChatsActivity extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent("android.intent.action.personal");
             startActivity(intent);
         }
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        int id = textView.getId();
+        if (id == R.id.editTextEmailSearch) {
+//            chatsRecyclerView.
+        }
+        return true;
     }
 }
