@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:paddingLeft="10dp"
+    android:paddingTop="16dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="16dp">
 
     <ImageView
         android:id="@+id/imageViewMessageItemProfile"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -20,30 +21,34 @@
         android:id="@+id/textViewMessageItemMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/primary_text_color"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="111dp" />
+        app:layout_constraintStart_toEndOf="@+id/imageViewMessageItemProfile"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewMessageItemMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="TextView"
         android:textColor="@color/primary_text_color"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="52dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewMessageItemProfile"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMessageItemProfile"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMessageItemMail"
+        app:layout_constraintVertical_bias="0.36" />
 
     <TextView
         android:id="@+id/textViewMessageItemMessageDateTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
+        android:textAlignment="textEnd"
         android:textColor="@color/primary_text_color"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
