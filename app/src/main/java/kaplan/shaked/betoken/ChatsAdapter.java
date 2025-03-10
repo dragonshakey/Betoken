@@ -30,7 +30,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
         final ChatItem chatItem = chatsList[position];
         holder.mail.setText(chatItem.getMail());
         holder.lastMessage.setText(chatItem.getLastMessage());
-        holder.lastMessageDateTime.setText(chatItem.getLastMessageDateTime().toString());
+        String dateTime = chatItem.getLastMessageTime().toString() + "\n" + chatItem.getLastMessageDate().toString();
+        holder.lastMessageDateTime.setText(dateTime);
         holder.profilePicture.setImageResource(chatItem.getProfilePicture());
     }
 

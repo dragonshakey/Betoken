@@ -1,6 +1,10 @@
 package kaplan.shaked.betoken;
 
+import android.os.Build;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class ChatItem {
     private final String mail;
@@ -25,6 +29,22 @@ public class ChatItem {
 
     public LocalDateTime getLastMessageDateTime() {
         return lastMessageDateTime;
+    }
+
+    public LocalDate getLastMessageDate() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return lastMessageDateTime.toLocalDate();
+        }
+
+        return null;
+    }
+
+    public LocalTime getLastMessageTime() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return lastMessageDateTime.toLocalTime();
+        }
+
+        return null;
     }
 
     public int getProfilePicture() {

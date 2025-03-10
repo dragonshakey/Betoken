@@ -20,12 +20,12 @@
         android:id="@+id/textViewMessageItemMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="20dp"
         android:text="TextView"
         android:textColor="@color/primary_text_color"
         android:textSize="18sp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="248dp" />
+        tools:layout_editor_absoluteX="111dp" />
 
     <TextView
         android:id="@+id/textViewMessageItemMessage"
@@ -34,19 +34,19 @@
         android:text="TextView"
         android:textColor="@color/primary_text_color"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="264dp"
-        tools:layout_editor_absoluteY="28dp" />
+        tools:layout_editor_absoluteX="112dp"
+        tools:layout_editor_absoluteY="52dp" />
 
     <TextView
         android:id="@+id/textViewMessageItemMessageDateTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textColor="@color/primary_text_color"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.913"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
